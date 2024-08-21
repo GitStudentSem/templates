@@ -1,8 +1,8 @@
 import express from "express";
-import { loginValidation, registerValidation } from "../validations";
-import { handleValidationErrors } from "../midlewares";
-import { authController } from "../controllers/authController";
 import { getErrorSwaggerDoc } from "../assets/getErrorSwaggerDoc";
+import { authController } from "../controllers/authController";
+import { handleValidationErrors } from "../midlewares";
+import { loginValidation, registerValidation } from "../validations";
 
 import {
 	BodyLoginSwaggerDoc,
@@ -61,31 +61,6 @@ export const registerSwaggerDoc = {
 			},
 		},
 	},
-
-	"/api/auth/adminLogin": {
-		post: {
-			tags: ["Авторизация"],
-			summary: "Логин для панели администратора, защищен проверкой на роль",
-			requestBody: {
-				content: {
-					"application/json": {
-						schema: BodyLoginSwaggerDoc,
-					},
-				},
-			},
-			responses: {
-				200: {
-					description: "Успешный логин",
-					content: {
-						"application/json": {
-							schema: ViewLoginSwaggerDoc,
-						},
-					},
-				},
-				error: getErrorSwaggerDoc("Ошибка логина"),
-			},
-		},
-	},
 };
 
 export const getAuthRouter = () => {
@@ -101,12 +76,6 @@ export const getAuthRouter = () => {
 		loginValidation,
 		handleValidationErrors,
 		authController.login,
-	);
-	router.post(
-		"/adminLogin",
-		loginValidation,
-		handleValidationErrors,
-		authController.adminLogin,
 	);
 
 	return router;

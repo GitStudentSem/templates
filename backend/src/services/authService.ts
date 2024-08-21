@@ -62,30 +62,4 @@ export const authService = {
 
 		return { firstName, secondName, token };
 	},
-
-	async adminLogin(data: Login) {
-		const { email, password } = data;
-
-		const loginnedUser = await authRepository.adminLogin({ email });
-
-		const isValidPass = await bcrypt.compare(
-			password,
-			loginnedUser.passwordHash,
-		);
-
-		if (!isValidPass) {
-			throw new DBError(
-				"Логин или пароль не верен",
-				HTTP_STATUSES.BAD_REQUEST_400,
-			);
-		}
-
-		const { userId, firstName, secondName } = loginnedUser;
-
-		const token = jwt.sign({ userId }, settings.JWT_SECRET, {
-			expiresIn: "30d",
-		});
-
-		return { firstName, secondName, token };
-	},
 };

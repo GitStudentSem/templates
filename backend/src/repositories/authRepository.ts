@@ -61,23 +61,4 @@ export const authRepository = {
 		}
 		return user;
 	},
-
-	async adminLogin(data: Login) {
-		const { email } = data;
-
-		const user = await userCollection.findOne({ email });
-
-		if (!user) {
-			throw new DBError(
-				"Логин или пароль не верен",
-				HTTP_STATUSES.NOT_FOUND_404,
-			);
-		}
-
-		if (user.role === "user") {
-			throw new DBError("Доступ запрещен", HTTP_STATUSES.BAD_REQUEST_400);
-		}
-
-		return user;
-	},
 };
