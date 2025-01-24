@@ -1,9 +1,15 @@
 {
-	"devDependencies": {
-		"typescript": "^5.5.4"
-	},
-	"scripts": {
-		"build": "npx tsc",
-		"watch": "npx tsc -w"
-	}
+  "name": "vanilats",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "typescript": "~5.6.2",
+    "vite": "^6.0.5"
+  }
 }
